@@ -79,7 +79,7 @@ function BaskedFunc(array){
 
 
 // 
-// DIFAULT HOLATDA PAKEMON CARD YARATISH
+// DEFAULT HOLATDA PAKEMON CARD YARATISH
 // 
 pakemonCard(pokemons);
 BaskedFunc(pokemons);
@@ -100,7 +100,6 @@ typeFunc(pokemons)
 // TYPE BUYICHA QIDIRISH
 // 
 $("#typeSelect").addEventListener("input",()=>{
-    
     let mass=[] ;
     pokemons.forEach((item)=>{
         let s=0;
@@ -158,10 +157,10 @@ $("#buttonsearch").addEventListener("click",()=>{
     if($(".search").value){
         array=array.filter((item)=>item.name.toLowerCase().includes(`${$(".search").value.toLowerCase()}`))
     }
-    console.log(array);
+    
     if($("#letters").value!="Mixed"){
         let arr=[];
-        if(("#letters").value=="Zz-Aa") {
+        if($("#letters").value=="Zz-Aa") {
             arr=array.map(item=>item.name);
             arr.sort();arr.reverse();
             console.log(arr);
