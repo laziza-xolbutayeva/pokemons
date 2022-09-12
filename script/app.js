@@ -158,11 +158,19 @@ $("#buttonsearch").addEventListener("click",()=>{
     if($(".search").value){
         array=array.filter((item)=>item.name.toLowerCase().includes(`${$(".search").value.toLowerCase()}`))
     }
+    console.log(array);
     if($("#letters").value!="Mixed"){
         let arr=[];
-        if(("#letters").value!="Zz-Aa") arr=array.map(item=>item.name).sort().reverse();
-        else arr=array.map(item=>item.name).sort();
-
+        if(("#letters").value=="Zz-Aa") {
+            arr=array.map(item=>item.name);
+            arr.sort();arr.reverse();
+            console.log(arr);
+        }
+        else{
+             arr=array.map(item=>item.name);
+             arr.sort();
+             console.log(arr);
+        }
         let mass=[];
         arr.forEach((item)=> mass.push(array.find( e =>e.name==item)) );
         array=mass;
