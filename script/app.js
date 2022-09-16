@@ -1,8 +1,19 @@
 'use strict'
 
 
+localStorage.clear();
+
 let idCard=[];
 let likedCardObj=[];
+
+if(JSON.parse(localStorage.getItem('arr'))!=null){
+    idCard=JSON.parse(localStorage.getItem('arr'));
+}
+if(JSON.parse(localStorage.getItem('obj'))!=null){
+    likedCardObj=JSON.parse(localStorage.getItem('obj'));
+}
+console.log(idCard);
+console.log(likedCardObj);
 // 
 // PAKEMON CARD YARATUVCHI FUNKSIYA
 // 
@@ -10,8 +21,9 @@ function pakemonCard(pokemon){
     $("#pakemon_cards").innerHTML="";
     pokemon.forEach((item)=>{
         let likedclass;
-        if(likedCardObj.includes(item)){
+        if(idCard.includes(`${item.id}`)){
             likedclass="fa-solid";
+            console.log(item);
         }
         else{
             likedclass="fa-regular";
@@ -40,8 +52,6 @@ function pakemonCard(pokemon){
     })
 
 }
-
-
 // 
 // DEFAULT HOLATDA PAKEMON CARD YARATISH
 // 
@@ -65,10 +75,8 @@ function typeFunc(mas){
         })
     })
 }
-
-
 // 
-// SELECTGA OPTION QO'SHISH
+// KATEGORIYA QO'SHISH
 // 
 typeFunc(pokemons)
 
@@ -99,15 +107,9 @@ function createPakemonCardLiked(objects){
 
     })
 }
+createPakemonCardLiked(likedCardObj)
 
 
-// 
-// liked bosilganda objectga qo'shish
-// 
-function addObj(id){
-    likedCardObj.push(pokemons.find((e)=>e.id==id));
-    createPakemonCardLiked(likedCardObj)
-}
 
 
 // 
@@ -122,16 +124,17 @@ $("#pakemon_cards").addEventListener("click",(e)=>{
                     item.classList.add('fa-solid');
                     idCard.push(item.getAttribute("data-id"));
                     addObj(item.getAttribute("data-id"));
+                    localStorage.setItem('arr',JSON.stringify(idCard));
+                    localStorage.setItem('obj',JSON.stringify(likedCardObj))
                 }
                 else{
                     item.classList.remove('fa-solid');
                     item.classList.add('fa-regular');
                     idCardAndLikedCardObjDelete(e.target.getAttribute("data-id"));
                     createPakemonCardLiked(likedCardObj);
-
+                    // localStorage.setItem('obj',JSON.stringify(likedCardObj))
                 }
             }
-
         })
     }
 })
@@ -150,7 +153,21 @@ function idCardAndLikedCardObjDelete(id){
         }
     })
     likedCardObj.splice(deleteObj,1);
+
+    localStorage.setItem('arr',JSON.stringify(idCard));
+    localStorage.setItem('obj',JSON.stringify(likedCardObj))
 }
+
+
+// 
+// liked bosilganda objectga qo'shish
+// 
+function addObj(id){
+    likedCardObj.push(pokemons.find((e)=>e.id==id));
+    createPakemonCardLiked(likedCardObj)
+}
+
+
 
 
 
